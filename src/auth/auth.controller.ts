@@ -1,9 +1,18 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post , Body, ValidationPipe} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { RegisterDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  
+  @Post('register')
+  register(@Body( new ValidationPipe(),) registerDto : RegisterDto)
+  {
+    try{
+          return this.authService.register(registerDto)
+    }catch(error){
+      return { message : error}
+    }
+  }
 }
