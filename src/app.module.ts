@@ -18,6 +18,8 @@ import { AuthModule } from './auth/auth.module';
       username : "postgres",
       password : "11111",
       database: 'GED_PRO',
+      synchronize : true,
+      entities : [__dirname + '/**/*.entity{.ts,.js}']
     }),
 
     ConfigModule.forRoot(),
