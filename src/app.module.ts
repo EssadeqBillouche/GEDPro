@@ -5,25 +5,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-
+import { TypeOrmConfig } from './config/typeOrm.config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb+srv://essadeqbillouche_db_user1:icz3Bwfdu0q66Tki@gedpro.7vd8iwn.mongodb.net/?appName=GEDPro"),
-
-    TypeOrmModule.forRoot({
-      type: "postgres",
-      host: "localhost",
-      port : 5432,
-      username : "postgres",
-      password : "11111",
-      database: 'GED_PRO',
-      synchronize : true,
-      entities : [__dirname + '/**/*.entity{.ts,.js}']
-    }),
-
     ConfigModule.forRoot(),
 
+    TypeOrmModule.forRoot(TypeOrmConfig),
     AuthModule
 
   ],
