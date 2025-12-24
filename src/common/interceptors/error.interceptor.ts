@@ -2,7 +2,7 @@ import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpExcepti
 import { error } from 'console';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { LogToFile } from 'src/logs/System.log';
+import { LogToFile } from 'src/common/SystemLog';
 
 @Injectable()
 export class ErrorInterceptor implements NestInterceptor {
