@@ -14,6 +14,6 @@ export class RegisterDto {
      readonly firstName : string;
 
      @IsNotEmpty()
-    readonly lastname : string;
+    readonly lastName : string;
 
 }
