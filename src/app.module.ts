@@ -9,11 +9,12 @@ import { TypeOrmConfig } from './config/typeOrm.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-
+    ConfigModule.forRoot({
+      isGlobal : true,
+      envFilePath : '.env'
+    }),
     TypeOrmModule.forRoot(TypeOrmConfig),
     AuthModule
-
   ],
   controllers: [AppController],
   providers: [AppService],
