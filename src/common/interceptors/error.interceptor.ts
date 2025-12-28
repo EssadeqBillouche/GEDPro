@@ -7,11 +7,12 @@ import { LogToFile } from 'src/common/SystemLog';
 @Injectable()
 export class ErrorInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+
     return next.handle().pipe(
         catchError((err)=>{
           if(err instanceof HttpException){
             // throw the http exceptions to user
-            throw err
+            return throwError(()=>err)
           }
           console.error('errror with : ', err);
           LogToFile(err); // log the error inside the file 
