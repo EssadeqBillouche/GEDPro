@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException , NotAcceptableException} from '@nestjs/common';
 import { RegisterDto } from './dtos/register.dto';
 import bcrypt from 'node_modules/bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dtos/Login.dto';
 import { UsersService } from 'src/users/users.service';
+import { error } from 'console';
 
 @Injectable()
 export class AuthService {
@@ -35,22 +36,18 @@ export class AuthService {
   }
 
   async register(userdata: RegisterDto) {
-    try {
-      const user = await this.userService.findByEmail(userdata.email);
+    
+    const user = await this.userService.findByEmail(userdata.email);
+    const role = await this.userService.getRole(userdata.role)
 
-      const hashedPassword = await bcrypt.hash(userdata.password, 10);
-      userdata = { ...userdata, password: hashedPassword };
+    if (!user && role) {
+      const hashedPassword = await bcrypt.hash(userdata.password, 10)
+      console.log(hashedPassword)
+      this.userService.createUser({...userdata, password:hashedPassword})
+    }
 
-      const role = await this.userService.getRole(userdata.role)
-
-      if (user && role) {
-        const {password , id, refresh_Token, ...registered_User} = await this.userService.createUser({...user, password :hashedPassword})
-      }else {
-              throw new NotFoundException('this email a ready exist, try to login');
-      }
-
-    } catch (error) {
-      throw error;
+    else{
+      throw new NotAcceptableException();
     }
   }
 
