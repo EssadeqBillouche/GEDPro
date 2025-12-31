@@ -33,7 +33,7 @@ async findByEmail(userEmail: string) {
     return await this.RoleRepository.findOne({where : {name : role_Name}})
   }
 
-  async createUser( userData : Partial <User>){
+  async createUser( userData ){
 
     const registeredUser = this.UserRepository.create(userData);
     return await this.UserRepository.save(registeredUser)
