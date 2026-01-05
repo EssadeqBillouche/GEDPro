@@ -1,12 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 
 @Entity()
-export class Permission{
+export class Permission {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @PrimaryGeneratedColumn()
-    id : number;
+  @Column()
+  action: string; // e.g., 'CV_READ'
 
-    @Column()
-    name : string
+  @Column()
+  subject: string; // e.g., 'Candidate'
 }
