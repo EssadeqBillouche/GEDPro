@@ -1,29 +1,37 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinTable, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from "typeorm";
 import { Role } from "./Role.entity";
+import { Organization } from "./Organization.entity";
 
 
 @Entity()
 export class User {
 
-    @PrimaryGeneratedColumn()
-    id : number;
+    @PrimaryGeneratedColumn('uuid')
+    id : string;
 
-    @Column({ unique : true})
+    @Column()
     firstName : string;
 
-    @Column({unique : true})
+    @Column()
     lastName : string;
 
-    @Column({unique : true})
+    @Column({ unique : true})
     email : string;
 
-    @Column({nullable : true})
-    password : string;
+    @Column({ name: 'password_hash' })
+    passwordHash : string;
 
-    @Column({type : 'varchar', nullable: true})
-    refresh_Token : string;
+    @Column({ name: 'refresh_token_hash', nullable : true})
+    refreshTokenHash : string;
 
-    @ManyToOne(()=>Role, (role)=> role.users)
-    role : Role;
+    @Column({ type : 'timestamp', nullable : true})
+    lastLogin : Date;
+
+    @ManyToOne(()=> Organization, (org)=> org.users)
+    organization : Organization;
+
+    @ManyToMany(()=> Role, (role)=> role.users)
+    @JoinTable()
+    roles : Role[];
 
 }
