@@ -21,78 +21,116 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# GEDPro - Intelligent HR Document Management Platform
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+GEDPro is a robust and scalable backend application designed for modern HR document management. It leverages a hybrid database architecture to handle structured organizational data and unstructured dynamic form submissions efficiently.
 
-## Project setup
+## 🚀 Key Features
 
+-   **Hybrid Database Architecture**:
+    -   **PostgreSQL (TypeORM)**: Manages relational data such as Users, Organizations, Candidates, and Workflows.
+    -   **MongoDB (Mongoose)**: Handles flexible schemas for Dynamic Forms, Templates, and Submissions.
+-   **Multi-Tenancy Support**: Built-in data isolation per organization using interceptors and context services.
+-   **Dynamic Forms Engine**: Create and manage custom form templates with flexible validation schemas.
+-   **Secure Authentication**: JWT-based authentication with Access and Refresh tokens.
+-   **Candidate Management**: specialized module for tracking candidates and their state history.
+-   **Object Storage**: Integrated with MinIO (S3 compatible) for secure file storage.
+-   **API Documentation**: Auto-generated Swagger/OpenAPI documentation.
+
+## 🛠 Tech Stack
+
+-   **Framework**: [NestJS](https://nestjs.com/) (Node.js)
+-   **Language**: TypeScript
+-   **Databases**:
+    -   PostgreSQL 15
+    -   MongoDB
+-   **Use Cases**:
+    -   **TypeORM**: Relational Mapping
+    -   **Mongoose**: Document Mapping
+-   **Validation**: Zod & Class Validator
+-   **Storage**: MinIO / AWS S3 SDK
+-   **Containerization**: Docker & Docker Compose
+
+## 📋 Prerequisites
+
+Ensure you have the following installed including:
+
+-   [Node.js](https://nodejs.org/) (v18 or later)
+-   [Docker](https://www.docker.com/) & Docker Compose
+-   [npm](https://www.npmjs.com/) or yarn
+
+## ⚙️ Installation
+
+1.  **Clone the repository**
+    ```bash
+    git clone <repository-url>
+    cd gedpro
+    ```
+
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Configuration**
+    Create a `.env` file in the root directory. You can use the defaults from `docker-compose.yml` or customize them:
+    ```env
+    # Database - Postgres
+    PG_HOST=localhost
+    PG_PORT=5432
+    PG_USERNAME=gedpro
+    PG_PASSWORD=gedpro_secret
+    PG_DATABASE=gedpro_db
+
+    # Database - MongoDB
+    MONGO_URI=mongodb://gedpro:gedpro_secret@localhost:27017/gedpro_forms?authSource=admin
+
+    # JWT Security
+    JWT_SECRET=super_secure_secret
+    JWT_EXPIRES_IN=15m
+    JWT_REFRESH_SECRET=super_secure_refresh_secret
+    JWT_REFRESH_EXPIRES_IN=7d
+
+    # Storage (MinIO)
+    MINIO_ENDPOINT=localhost
+    MINIO_PORT=9000
+    MINIO_ACCESS_KEY=minioadmin
+    MINIO_SECRET_KEY=minioadmin
+    MINIO_BUCKET=gedpro-files
+    MINIO_USE_SSL=false
+    ```
+
+## 🚀 Running the Application
+
+### 1. Start Support Services (Databases & MinIO)
+Use Docker Compose to spin up PostgreSQL and MongoDB.
 ```bash
-$ npm install
+docker-compose up -d
 ```
 
-## Compile and run the project
-
+### 2. Run the Application
+In a new terminal window, start the NestJS application.
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run start:dev
 ```
 
-## Run tests
+### 3. Access the Application
+-   **API**: `http://localhost:3000`
+-   **Swagger UI**: `http://localhost:3000/api`
 
-```bash
-# unit tests
-$ npm run test
+## 📚 Documentation
 
-# e2e tests
-$ npm run test:e2e
+-   **API Documentation**: Access the auto-generated Swagger documentation at `/api` after starting the application.
+-   **NestJS Documentation**: [https://docs.nestjs.com](https://docs.nestjs.com)
 
-# test coverage
-$ npm run test:cov
-```
+## 🤝 Contributing
 
-## Deployment
+We welcome contributions to GEDPro! Please read our [Contributing Guide](CONTRIBUTING.md) for details on how to get involved.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## 📝 License
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+GEDPro is [MIT licensed](LICENSE).
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+## 📞 Support
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+For support, please open an issue on the GitHub repository or contact the maintainers.
